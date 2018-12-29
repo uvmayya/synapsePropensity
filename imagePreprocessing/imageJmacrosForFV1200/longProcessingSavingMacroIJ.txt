@@ -1,0 +1,18 @@
+//make sure to create the folder for saving the image series
+
+//copied from panelProcessingSavingMacroIJ
+
+fName="ts118_donE_3minOn.oif"
+open("C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\080818_donBCE_memLFA1onRate\\"+fName+"");
+run("Split Channels");
+
+selectWindow("C1-"+fName+""); //IRM channel
+run("Remove Outliers...", "radius=8 threshold=25 which=Bright stack");
+run("Enhance Contrast...", "saturated=0 normalize process_all");
+run("8-bit");
+selectWindow("C2-"+fName+""); //DIC channel
+run("8-bit");
+
+run("Merge Channels...", "c1=C1-"+fName+" c2=C2-"+fName+" create");
+run("Image Sequence... ", "format=TIFF name=ts118_donE_3minOn digits=3 save=C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\080818_donBCE_memLFA1onRate\\anals\\ts118_donE\\ts118_donE_3minOn_t001_c001.tif");
+//close();

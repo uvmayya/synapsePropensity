@@ -1,0 +1,11 @@
+use calcArrestEff for totEncountered (total number of encounters that includes both transient and durable). Dividing by the duration of time gives encounter rate. The input file has to be TIAM output with both IRM and spot fluorescence information. 
+
+use countAttached for totAttached (total number of arrest and attachments on spots). Has criterion to ensure that the duration of interaction is at least 4min (8 time-steps). The 'datacell' input has to be for image series where in DIC images are masked with IRM and spot-thresholded images. This ensures that only cells that are localized to the spots and have IRM footprint are present in the images and only those are tracked. 
+
+totAttached/totEncountered=arrestEfficiency. 
+
+giveCellsOnSpots.m just counts the number of cells per frame. It is typically used on 'datacell' with results from IRM and spot masked cells; thus only arrested cells on spots are present. Use this for calculating raw values of on-rate for arrest/attachment by estimating the slope of attachment curve. 
+
+giveCellsOnSpots.m is also to calculate the average number of cells in the field to normalize the on-rate of arrest on spots. 
+
+-------------------------------------

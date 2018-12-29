@@ -1,0 +1,2 @@
+Run calcFractSynapse on TIAM output that has IRM and cell-type information based on vital dye flurescence channels (cell-type information is optional). 
+

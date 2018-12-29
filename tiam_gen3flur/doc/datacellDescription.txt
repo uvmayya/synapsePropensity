@@ -1,0 +1,28 @@
+datacell description for vivek:
+------------------------------------------
+
+The datacell is a 1 dimensional matlab cell array, where each element is a matrix that holds data relevant to a single cell-track (I'll refer to these as a cell-track-matrices). Each cell-track-matrix has a number of columns:
+
+1:  startframe *
+2:  endframe *
+3:  x position
+4:  y position
+5:  irm attachment area
+6:  fluor channel 1 value
+7:  fluor channel 2 value
+8:  fluor / cell-type classification *
+9:  step 1 speed
+10:  step 4 speed
+11:  step 8 speed
+12:  normalized displacement *
+13:  displacement *
+14:  arrest coefficient *
+15:  turn angle
+16:  corrected confinement index *
+17-40:  outline
+41:  polarity
+
+* asterisk means the value is the same for all rows
+
+
+Columns in the datacell become populated when functions such as get_speed, get_irm, get_fluor, etc., are called. Each of these functions returns a datacell with the designated column values added for each cell-track-matrix in the datacell.

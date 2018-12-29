@@ -1,0 +1,28 @@
+For DIC images masked with thresholded IRM and spot images: 
+
+Do manual thresholding of the spot image; Apply mask; Fill holes; Dilate 6 times (7 for memory datasets).
+
+IRM processing: 
+Remove outliers (20 pixel radius; above 40)
+Apply FFT bandpass filter (down to 40, upto 3, autoscaling with saturation)
+Default Threshold algorithm (calculate threshold for each slice separately); Apply mask
+Fill holes; Dilate 3 times
+
+Image calculator: AND on both mask images; take the 'overlap', fill holes; then apply that as a mask (another AND operation) on the DIC channel.
+
+Filling the background: Math->Macro-> if(v==0){v=80;} 
+The actual background fill value is decided based on checking the specific dataset.
+
+----------------------------------------
+
+For image series containing DIC, IRM and flourescence information
+
+IRM processing: 
+Remove outliers 20 pixel radius; above 5 (bright pixels)
+Enhance contrast: 0% saturated, normalize, 
+Remove outliers: 20 pixel radius, threshold 10
+
+Spot image processing: 
+Enhance contrast: 0% saturated, normalize
+Median filtering (pixel radius 2)
+New blank image (with 360 slices); Image calculator (blank image series + processed spots image)

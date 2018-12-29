@@ -1,0 +1,53 @@
+//create necessary folders before running this.
+
+dName="080818_donBCE_memLFA1onRate"; //directory
+fName="ts118_donB_3minOn_"; //file
+iName="ts118_donB"; //image
+nslices=90;
+
+run("Image Sequence...", "open=C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\"+dName+"\\anals\\"+iName+"\\"+fName+"t001_c001.tif number="+nslices+" increment=2 sort");
+run("Bandpass Filter...", "filter_large=40 filter_small=3 suppress=None tolerance=5 autoscale process");
+//setAutoThreshold("Default");
+//run("Threshold...");
+//setOption("BlackBackground", true);
+run("Convert to Mask", "method=Default background=Light calculate black");
+run("Invert", "stack"); // for some reason dilate shrinks the footprints during the automated run, when it shouldn't; hence inverting
+selectWindow(iName);
+run("Dilate", "stack");
+run("Dilate", "stack");
+run("Dilate", "stack");
+//run("Dilate", "stack");
+run("Fill Holes", "stack");
+run("Invert", "stack"); // reverting back to the footprint pixels having high value
+
+
+newImage("spots", "8-bit black", 512, 512, nslices);
+open("C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\"+dName+"\\anals\\"+iName+"_spot.tif");
+imageCalculator("Add stack", "spots",""+iName+"_spot.tif");
+selectWindow(""+iName+"_spot.tif");
+close();
+selectWindow("spots");
+//setAutoThreshold("Default");
+//run("Threshold...");
+//setAutoThreshold("Default dark");
+run("Convert to Mask", "method=Default background=Dark calculate black");
+run("Invert", "stack"); // for some reason dilate shrinks the spots during the automated run, when it shouldn't; hence inverting
+run("Dilate", "stack");
+run("Dilate", "stack");
+run("Dilate", "stack");
+run("Dilate", "stack");
+run("Invert", "stack"); // reverting back to the footprint pixels having high value
+imageCalculator("AND stack", "spots",iName);
+selectWindow(iName);
+close();
+selectWindow("spots");
+
+
+run("Image Sequence...", "open=C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\"+dName+"\\anals\\"+iName+"\\"+fName+"t001_c002.tif number="+nslices+" starting=2 increment=2 sort");
+imageCalculator("AND stack", iName,"spots");
+selectWindow("spots");
+close();
+selectWindow(iName);
+run("Macro...", "code=if(v==0){v=110;} stack");
+run("Image Sequence... ", "format=TIFF name="+fName+" start=0 digits=3 save=C:\\Users\\vmayya\\Documents\\dataOx\\IX83_FV1200\\2018\\"+dName+"\\anals\\masked_"+iName+"\\"+fName+"000.tif");
+//close();

@@ -1,0 +1,7 @@
+Here, the 'spot' image is used along with cell-type fluorescent channel time-series as input for TIAM. But the code can be used without flourescence channels as well (single spot image instead of image series with identical image repeating is better for handling). 
+
+The TIAM output is then used for calculating encounter rate and arrest efficiency. 
+
+Check the format in the 'batchSubmit*' file for running TIAM (also contains input parameters for data collected on Olympus FV1200 Confocal, 30x 1.05 NA silicone oil objective). For more details, check the original user guide released with the Mayya et al 2015, Journal of Immunological Methods article. 
+
+

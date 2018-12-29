@@ -1,0 +1,23 @@
+per-cell track csv table description:
+------------------------------------------
+Each row corresponds to a cell/cell-track.
+Each column is an average (over the track) motility characteristic. 
+
+A:  cell-track index
+B:  cell-type (from fluorescence)
+C:  step1 speed
+D:  step4 speed
+E:  step8 speed
+F:  normalized displacement
+G:  displacement 
+H:  contact area/IRM
+I:  flur intensity value (channel1)
+J:  flur intensity value (channel2)
+K:  arrest coefficient
+L:  absolute/scalar turn angle
+M:  vectorial turn angle
+N:  corrected confinement index 
+O:  polarity
+
+
+
